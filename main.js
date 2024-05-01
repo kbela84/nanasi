@@ -4,6 +4,7 @@ let navbar = document.getElementById('navigation')
 let logo = document.getElementById('logo')
 let serviceCardFrames = document.querySelectorAll('.rotatedFrame')
 let personalTrainingContainer = document.getElementById('personal')
+let blogNavLink = document.getElementById('blogNavLink')
 
 
 const navLinks = document.querySelectorAll('.nav-link')
@@ -13,6 +14,9 @@ navLinks.forEach((l) => {
 })
 
 
+let yPosition = 0;
+
+
 $(window).scroll(function () {
     let scroll = $(window).scrollTop();
     if (scroll > 400) {
@@ -20,7 +24,7 @@ $(window).scroll(function () {
         logo.classList.remove('d-none')
 
     }
-    if (scroll < 400 ) {
+    if (scroll < 400) {
         navbar.classList.remove('showNavbar')
         logo.classList.add('d-none')
     }
@@ -29,63 +33,6 @@ $(window).scroll(function () {
             l.classList.remove('pushUp')
         })
     }
-    // if (scroll > 4300) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-0px')
-    // }
-    // if (scroll > 4350) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-10px')
-    // }
-    // if (scroll > 4400) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-20px')
-    // }
-    // if (scroll > 4450) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-30px')
-    // }
-    // if (scroll > 4500) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-40px')
-    // }
-    // if (scroll > 4550) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-50px')
-    // }
-    // if (scroll > 4600) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-60px')
-    // }
-    // if (scroll > 4650) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-70px')
-    // }
-    // if (scroll > 4700) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-80px')
-    // }
-    // if (scroll > 4750) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-90px')
-    // }
-    // if (scroll > 4800) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-100px')
-    // }
-    // if (scroll > 4850) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-110px')
-    // }
-    // if (scroll > 4900) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-120px')
-    // }
-    // if (scroll > 4950) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-130px')
-    // }
-    // if (scroll > 5000) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-140px')
-    // }
-    // if (scroll > 5050) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-150px')
-    // }
-    // if (scroll > 5100) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-160px')
-    // }
-    // if (scroll > 5150) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-170px')
-    // }
-    // if (scroll > 5200) {
-    //     root.style.setProperty('--aboutBackgroundOffset', '-180px')
-    // }
 })
 
 
@@ -95,19 +42,47 @@ $(window).scroll(function () {
         hH = $('#personal').outerHeight(),
         wH = $(window).height(),
         wS = $(this).scrollTop();
-    if(wS +650> (hT+hH-wH)){
+    if(wS +500> (hT+hH-wH)){
         personal.classList.remove('slide')
     }
  });
 
 
 
- $( window ).on('scroll', function(){
+ $( window ).on('scroll', function(){    
 
     let scrollTop = $(this).scrollTop();
+    yPosition = scrollTop;
     let backgroundTop = $('#aboutBackground').offset().top;
     $( '#aboutBackground' ).css({
-      transform: 'translateY('+  ( (-1 * scrollTop + backgroundTop)/2 *-1 ) +'px)',
+      transform: 'translateY('+  ( (-1 * scrollTop + backgroundTop)/1.2 *-1 ) +'px)',
+      
     });
 
   });
+
+
+  let blogLink = document.querySelector('.blogLinkText');
+  let mainPage = document.getElementById('main')
+  let blogCover = document.getElementById('blogCover')
+
+  function redirect () {
+    window.location.href="blog.html"
+  }
+
+  blogLink.addEventListener('click', () => {
+    navbar.classList.remove('showNavbar')
+    mainPage.classList.add('blogSwap');
+    blogCover.classList.add('blogCoverSwap');
+    root.style.setProperty('--currentHeight', yPosition + 'px')
+    setTimeout(redirect, 500)
+})
+
+
+blogNavLink.addEventListener('click', () => {
+    navbar.classList.add('showNavbar')
+    mainPage.classList.add('blogSwap');
+    blogCover.classList.add('blogCoverSwap');
+    root.style.setProperty('--currentHeight', yPosition + 'px')
+    setTimeout(redirect, 500)   
+})
